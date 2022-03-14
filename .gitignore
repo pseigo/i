@@ -1,0 +1,21 @@
+*.log
+npm-debug.*
+*.scssc
+*.log
+*.swp
+.DS_Store
+.sass-cache
+node_modules
+_site/
+package-lock.json
+
+# Specifics
+
+# Hide design tokens
+src/scss/_tokens.scss
+
+# Hide compiled CSS
+src/_includes/assets/generated/*
+
+# Ignore locks from PMs other than yarn
+package-lock.json
