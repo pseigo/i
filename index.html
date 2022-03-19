@@ -45,6 +45,17 @@
     .fade-in {
       animation: fade-in ease 2s;
     }
+
+    .hidden {
+      visibility: hidden;
+    }
+
+    .wahoo {
+      margin-top: 6em;
+      color: #757575;
+      font-size: 0.64em;
+      font-family: 'Fira Code', Consolas, Courier, monospace;
+    }
   </style>
 
 </head>
@@ -56,75 +67,120 @@
 
   <h1>~~~~~~~~~~</h1>
   <div style="margin-top: 2em;">
-    <ul id="list"></ul>
+    <ul id="list">
+      <li class="hidden">...</li>
+      <li class="hidden">...</li>
+      <li class="hidden">...</li>
+      <li class="hidden">...</li>
+      <li class="hidden">...</li>
+      <li class="hidden">...</li>
+      <li class="hidden">...</li>
+      <li class="hidden">...</li>
+    </ul>
+
+    <p class="wahoo hidden">( last at student dot ubc dot ca )</p>
   </div>
 
-  <noscript style="margin-top: 6em; color: #757575; font-size: 0.64em; font-family: 'Fira Code', Consolas, Courier, monospace;">
-    ( last at student dot ubc dot ca )
-  </noscript>
-
-  </article>
-  </main>
+</article>
+</main>
 
 
-  <script type="text/javascript">
-  "use strict";
+<script type="text/javascript">
+"use strict";
 
-  const list = document.getElementById("list");
+function cascade_reveal_HTML_children(element, delay) {
+  return _do_cascade_reveal_HTML_children(element, delay, 0);
+}
 
-  function addListItem(textContent) {
-    const item = document.createElement("li");
-    item.textContent = textContent;
-    list.appendChild(item);
-    item.setAttribute("class", "fade-in");
-  }
+function _do_cascade_reveal_HTML_children(element, delay, index) {
+  const children = element.children;
+  const numItems = children.length;
 
-  function appendContact() {
-    const item = document.createElement("p");
-    item.textContent = "( last at student dot ubc dot ca )";
-    item.setAttribute("style", "margin-top: 6em; color: #757575; font-size: 0.64em; font-family: 'Fira Code', Consolas, Courier, monospace;");
-    list.insertAdjacentElement("afterend", item);
-    item.setAttribute("class", "fade-in");
-  }
-
-  function addNListItems(text, count) {
-    _do_addNListItems(text, 0, count);
-  }
-
-  function _do_addNListItems(text, count, max) {
+  if (index < numItems) {
     setTimeout(() => {
-      if (count < max) {
-        addListItem(text);
-        _do_addNListItems(text, count + 1, max);
-      } else {
-        setTimeout(() => {
-          appendContact();
-        }, 3000);
-      }
-    }, 1700);
+      children.item(index).setAttribute("class", "fade-in");
+      children.item(index).setAttribute("style", "");
+      _do_cascade_reveal_HTML_children(element, delay, index + 1);
+    }, delay);
   }
 
-  addNListItems("...", 7);
-  </script>
+  return numItems * delay;
+}
+
+function reveal_HTML(element, delay = 0) {
+  const reveal = e => e.setAttribute("class", element.getAttribute("class").replace("hidden", "fade-in"));
+  if (delay > 0) {
+     setTimeout(() => reveal(element), delay);
+  } else {
+    reveal(element);
+  }
+}
+
+function main() {
+  const list = document.getElementById("list");
+  const wahoo = document.getElementsByClassName("wahoo")[0];
+
+  const delay = 150;
+
+  const revealTime = cascade_reveal_HTML_children(list, delay);
+  reveal_HTML(wahoo, revealTime + 7*delay);
+}
+
+window.onload = main;
+</script>
 
 
-  <!-- IE < 10 -->
-  <!--[if IE]>
-  <script type="text/javascript">
-    window.location = "/ie";
-  </script>
-  <![endif]-->
+<!-- IE < 10 -->
+<!--[if IE]>
+<script type="text/javascript">
+  window.location = "/ie";
+</script>
+<![endif]-->
 
-  <!-- IE >= 10 -->
-  <script type="text/javascript">
-    if (window.navigator.msPointerEnabled) {
-      window.location = "/ie";
+<!-- IE >= 10 -->
+<script type="text/javascript">
+"use strict";
+
+if (window.navigator.msPointerEnabled) {
+  // window.location = "/ie";
+
+  function cascade_reveal_HTML_children(element) {
+    return _do_cascade_reveal_HTML_children(element, 0);
+  }
+
+  function _do_cascade_reveal_HTML_children(element, index) {
+    const children = element.children;
+    const numItems = children.length;
+
+    if (index < numItems) {
+      children.item(index).setAttribute("class", "fade-in");
+      children.item(index).setAttribute("style", "");
+      _do_cascade_reveal_HTML_children(element, index + 1);
     }
-  </script>
+
+    return true;
+  }
+
+  function reveal_HTML(element) {
+    element.setAttribute("class", element.getAttribute("class").replace("hidden", "fade-in"));
+  }
+
+  function main() {
+    console.log("ie");
+    const list = document.getElementById("list");
+    const wahoo = document.getElementsByClassName("wahoo")[0];
+
+    const revealTime = cascade_reveal_HTML_children(list);
+    reveal_HTML(wahoo, revealTime);
+  }
+
+  window.onload = main;
+}
+</script>
 
 
-  <script data-goatcounter="https://pseigo.goatcounter.com/count" async src="https://gc.zgo.at/count.js">
-  </script>
+<script data-goatcounter="https://pseigo.goatcounter.com/count" async src="https://gc.zgo.at/count.js">
+</script>
 
 
 </body>
