@@ -54,7 +54,7 @@
       visibility: hidden;
     }
 
-    .asdfghjkl {
+    .less {
       color: #757575;
       font-family: 'Fira Code', Consolas, Courier, monospace;
       /* font-size: .64em; */
@@ -126,12 +126,12 @@ function reveal_HTML(element, delay = 0) {
 
 function main() {
   const list = document.getElementById("list");
-  const asdfghjkl = document.getElementsByClassName("asdfghjkl")[0];
+  const less = document.getElementsByClassName("less")[0];
 
   const delay = 150;
 
   const revealTime = cascade_reveal_HTML_children(list, delay);
-  reveal_HTML(asdfghjkl, revealTime + 7*delay);
+  reveal_HTML(less, revealTime + 7*delay);
 }
 
 
