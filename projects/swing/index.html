@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>swing 0.1.0</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%
+        }
+    </style>
+</head>
+<body>
+
+<div id="notice-container"></div>
+<div id="canvas"></div>
+
+<script src="external/three_cpsc314/three.min.js"></script>
+<!--<script src="../external/three_cpsc314/three.js"></script>-->
+
+<script src="external/three_cpsc314/OBJLoader.js"></script>
+<script src="external/three_cpsc314/MTLLoader.js"></script>
+<script src="external/three_cpsc314/SourceLoader.js"></script>
+<script src="external/three_cpsc314/OrbitControls.js"></script>
+<script src="external/three_cpsc314/KeyboardState.js"></script>
+
+<!--<script src="creative.js" type="module"></script>-->
+<script type="module">
+import main from "./src/main.js";
+
+main();
+
+// TODO 'progressive enhancement'
+// const canvas = document.getElementById("canvas");
+// const gl = canvas.getContext("webgl");
+// if (gl) {
+//     main();
+// }
+// else {
+//     const warning = WebGL.getWebGLErrorMessage();
+//     document.getElementById("notice-container").appendChild(warning);
+// }
+</script>
+
+</body>
+</html>
